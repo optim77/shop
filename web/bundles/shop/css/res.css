@@ -1,0 +1,13 @@
+@media only screen and (max-width: 900px ) {
+    .resize{
+        width:100%;
+        display: block;
+    }
+}
+
+.white{
+    color: #fff;
+}
+.white:focus{
+    color: #fff;
+}
