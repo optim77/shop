@@ -1,0 +1,33 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% block subscribe %}<hr>{% endblock %}
+{% block title %}{{ app.request.get('category')|capitalize }}{% endblock %}
+{% block section %}{{ app.request.get('category')|capitalize }}{% endblock %}
+{% block amountItems %} {{ products|length }} items {% endblock %}
+{% block mainContent %}
+    <div class="w3-row">
+        {% if products == null %}
+            <div style="font-size: 20px;padding: 50px;">
+                {% trans %}No products in this category{% endtrans %}
+            </div>
+        {% endif %}
+{% for product in products %}
+
+
+            <div class="w3-col  s6 " style="float: left;">
+                <div class="w3-container" style="float: left;">
+                    <a href="{{ path('product', {'product': product.slug } ) }}" style="text-decoration: none">
+                        <img src="{{ asset(product.images) }}" width="150%"  style="width:100%" >
+                        <p style="font-weight: 900;font-size: 20px;padding: 10px;text-align: center">{{ product.name|capitalize }}</p>
+                    </a>
+                </div>
+
+            </div>
+
+
+
+
+
+
+{% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% block subscribe %}{% endblock %}
+{% block title %}Orders{% endblock %}
+{% block section %}Orders{% endblock %}
+{% block category %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block nav %}{% endblock %}
+{% block mainContent %}
+
+    {% if orders is defined and orders is not null %}
+
+        <div class="form-horizontal" style="padding: 10px;background-color: #EEEEEE;width: 100%;position: absolute;left: 0px;border-radius: 5px;" >
+            <form action="" method="get" class="form-inline filter-search" role="form" style="">
+                <input type="text" name="search" value="{{ queryParams['search'] }}" class="form-control" style="float:left;width: 80%;" placeholder="Find by id, name product">
+                <input type="submit" value="Search" class="btn" style=" float:left;margin-left: 10px;">
+                {#<input style="margin-left: 20px;" class="form-control" type="date" id="when" value="{{ 'now'|date('Y-m-d') }}">#}
+
+
+
+
+
+
+            </form>
+        </div>
+        <div style="clear: both;padding: 50px;"></div>
+        <div class="navigation" style="padding: 10px;position:absolute;left: 0px;top: 150px;">
+            {{ knp_pagination_render(orders) }}
+        </div>
+
+            <table class="table table-bordered table-striped" style="position:absolute;left: 0px;">
+                <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    {#<th>Product</th>#}
+                    <th>Purchase date</th>
+                    <th>Payed</th>
+                    <th>Bill</th>
+                    <th>Delivery</th>
+                    <th>Order ID</th>
+                    <th>Completed</th>
+                </tr>
+                {% set break = false %}
+        {% for order in orders %}
+            {% dump(order) %}
+
+                    <tr {{  order.completed == 'true' ? 'style="background-color:#b7f6ac"' : 'style="background:#ff8a87"' }}">
+                    <th>{{ order.id }}</th>
+                    <th><a href="{{ path('getAdress', {'idUser' :  order.user.id, 'orderId': order.orderId   } ) }}" >{{ order.user.name ~' '~ order.user.surname }}</a></th>
+                    {#<th><a href="{{ path('product', {'product':order.product.slug } ) }}"> {{ order.product.name }}</th>#}
+                    <th>{{ order.purchaseDate.date | date('d-m-Y') }}</th>
+                    <th>{{ order.payed == 0 ? 'NO' : 'YES' }}</th>
+                    <th>{{ order.bill }}</th>
+                    <th><a href="{{ path('deliveryAdmin') }}">{{ order.delivery.name }}</a></th>
+                    <th>{{ order.orderId }}</th>
+                    <th>{% if order.completed == true %}
+                            <img src="https://cdn2.iconfinder.com/data/icons/flat-ui-icons-24-px/24/checkmark-24-512.png" width="50px">
+                        {% elseif order.completed == false %}
+                            <a class="btn btn-info" href="{{ path('completeOrder', {'idOrder': order.id }) }}">Completed</a>
+                        {% endif %}
+                    </th>
+                    </tr>
+
+                    {% set break = true %}
+
+        {% endfor %}
+            </table>
+    {% endif %}
+
+{% endblock %}

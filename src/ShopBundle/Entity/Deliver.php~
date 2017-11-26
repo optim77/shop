@@ -1,0 +1,180 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: NASA
+ * Date: 2017-11-03
+ * Time: 21:09
+ */
+
+namespace ShopBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="ShopBundle\Repository\DeliverRepository")
+ * @ORM\Table(name="deliverType")
+ */
+class Deliver
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=120)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $timeToDeliver;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $cost;
+
+    /**
+     * @ORM\Column(type="string", length=120)
+     */
+    private $image = null;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Deliver
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Deliver
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set timeToDeliver
+     *
+     * @param string $timeToDeliver
+     *
+     * @return Deliver
+     */
+    public function setTimeToDeliver($timeToDeliver)
+    {
+        $this->timeToDeliver = $timeToDeliver;
+
+        return $this;
+    }
+
+    /**
+     * Get timeToDeliver
+     *
+     * @return string
+     */
+    public function getTimeToDeliver()
+    {
+        return $this->timeToDeliver;
+    }
+
+    /**
+     * Set cost
+     *
+     * @param \int $cost
+     *
+     * @return Deliver
+     */
+    public function setCost( $cost)
+    {
+        $this->cost = $cost;
+
+        return $this;
+    }
+
+    /**
+     * Get cost
+     *
+     * @return \int
+     */
+    public function getCost()
+    {
+        return $this->cost;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return Deliver
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+}

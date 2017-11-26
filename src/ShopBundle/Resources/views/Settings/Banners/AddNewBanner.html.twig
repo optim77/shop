@@ -1,0 +1,22 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% block subscribe %}{% endblock %}
+{% block title %}Main settings{% endblock %}
+{% block section %}Main settings{% endblock %}
+{% block category %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block mainContent %}
+    {% form_theme form "ShopBundle:Forms:styleForms.html.twig" %}
+
+    {% if app.request.get('idBanner') %}
+        {% set id = app.request.get('idBanner') %}
+    {{ form_start(form, {'action': path('editBanner',{'idBanner': id} ), 'method': 'POST' } ) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+        {% else %}
+            {{ form_start(form, {'action': path('addNewBanner'), 'method': 'POST' } ) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+    {% endif %}
+
+{% endblock %}

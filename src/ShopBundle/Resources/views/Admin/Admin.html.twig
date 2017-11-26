@@ -1,0 +1,44 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% block subscribe %}{% endblock %}
+{% block title %}Admin panel{% endblock %}
+{% block section %}Admin panel{% endblock %}
+{% block category %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block nav %}{% endblock %}
+{% block mainContent %}
+    <div style="width: 100%;position: absolute;left: 30px;right: 30px;text-align: center">
+
+        {#<ul>#}
+            {#<li><Main settings</li>#}
+            {#<li>Add product</li>#}
+            {#<li>Add category</li>#}
+            {#<li>Add brand</li>#}
+        {#</ul>#}
+        <hr>
+        <div style=" width: 32%;margin-right:10px;text-align: center;padding: 50px;float: left;" class="btn btn-danger" > <a style="color: #000;font-size: 20px" href="{{ path('adminOrders') }}"><img src="https://www.mystrain.com/assets/icons/dropdown/orders-icon-bbaf48d12a3db252585fea8b4ffd0312400648a49d1ece9e3d4f5134c237dac9.png" width="50px"><br>{% trans %}Orders{% endtrans %}</a> </div>
+        <div style=" width: 32%;margin-right:10px;text-align: center;padding: 50px;float: left;" class="btn btn-danger"> <a style="color: #000;font-size: 20px" href=""><img src="https://cdn1.iconfinder.com/data/icons/business-seo-vol-1/512/Gears_Cogs_Settings_Options_Setting_Configure_Configuration-512.png" width="50px"><br>{% trans %}Main settings{% endtrans %}</a> </div>
+        <div style=" width: 32%;margin-right:10px;text-align: center;padding: 50px;float: left;" class="btn btn-danger"> <a style="color: #000;font-size: 20px" href="{{ path('adminUsers') }}"><img src="https://cdn3.iconfinder.com/data/icons/rcons-user-action/32/boy-512.png" width="50px"><br>{% trans %}Users settings{% endtrans %}</a> </div>
+
+        <div style="clear: both;margin-top: 10px;"></div>
+
+
+        <div style=" width: 32%;margin-right:10px;text-align: center;padding: 50px;float: left;" class="btn btn-danger"><a style="color: #000;font-size: 20px" href="{{ path('addStaff') }}"><img src="http://wfarm3.dataknet.com/static/resources/icons/set112/69e0d01c.png" width="50px"><br>{% trans %}Add product{% endtrans %}</a> </div>
+        <div style=" width: 32%;margin-right:10px;text-align: center;padding: 50px;float: left;" class="btn btn-danger"><a style="color: #000;font-size: 20px" href="{{ path('editStuff') }}"><img src="https://cdn3.iconfinder.com/data/icons/simplius-pack/512/pencil_and_paper-512.png"width="50px"><br>{% trans %}Edit product{% endtrans %}</a> </div>
+        <div style=" width: 32%;margin-right:10px;text-align: center;padding: 50px;float: left;" class="btn btn-danger"><a style="color: #000;font-size: 20px" href="{{ path('addProduct') }}"><img src="http://wfarm4.dataknet.com/static/resources/icons/set112/3b93b61b.png"width="50ppx"><br>{% trans %}Add category{% endtrans %}</a> </div>
+
+        <div style="clear: both;margin-top: 10px;"></div>
+
+        <div style="width: 32%;margin-right:10px;text-align: center;padding: 50px;float: left;" class="btn btn-danger"><a style="color: #000;font-size: 20px" href="{{ path('editCategory') }}"><img src="https://cdn3.iconfinder.com/data/icons/simplius-pack/512/pencil_and_paper-512.png"width="50px"><br>{% trans %}Edit category{% endtrans %}</a> </div>
+        <div style=" width: 32%;margin-right:10px;text-align: center;padding: 50px;float: left;" class="btn btn-danger"><a style="color: #000;font-size: 20px" href="{{ path('addBrand') }}"><img src="https://cdn2.iconfinder.com/data/icons/business-and-internet/512/Tag-512.png"width="50ppx"><br>{% trans %}Add brand{% endtrans %}</a> </div>
+        <div style=" width: 32%;margin-right:10px;text-align: center;padding: 50px;float: left;" class="btn btn-danger"><a style="color: #000;font-size: 20px" href="{{ path('editBrand') }}"><img src="https://cdn3.iconfinder.com/data/icons/simplius-pack/512/pencil_and_paper-512.png"width="50px"><br>{% trans %}Edit brand{% endtrans %}</a> </div>
+
+        <div style="clear: both;margin-top: 10px;"></div>
+
+        <div style=" width: 32%;margin-right:10px;text-align: center;padding: 50px;float: left;" class="btn btn-danger" ><a style="color: #000;font-size: 20px" href="{{ path('deliveryAdmin') }}"><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/100245-200.png"width="50px"><br>{% trans %}Delivery{% endtrans %}</a> </div>
+        <div style=" width: 32%;margin-right:10px;text-align: center;padding: 50px;float: left;" class="btn btn-danger"><a style="color: #000;font-size: 20px" href="{{ path('adminBanners') }}"><img src="https://image.flaticon.com/icons/png/512/14/14364.png"width="50px"><br>{% trans %}Banners{% endtrans %}</a> </div>
+        <div style=" width: 32%;margin-right:10px;text-align: center;padding: 50px;float: left;" class="btn btn-danger"><a style="color: #000;font-size: 20px" href="{{ path('AdminContact') }}"><img src="https://image.flaticon.com/icons/png/512/34/34067.png"width="50px"><br>{% trans %}Contact page{% endtrans %}</a> </div>
+
+
+
+    </div>
+{% endblock %}

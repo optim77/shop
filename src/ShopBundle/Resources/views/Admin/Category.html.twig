@@ -1,0 +1,56 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% block subscribe %}{% endblock %}
+{% block title %}Category settings{% endblock %}
+{% block section %}Category settings{% endblock %}
+{% block category %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block nav %}{% endblock %}
+{% block mainContent %}
+
+    {% if categories is defined and categories is not null %}
+
+        <div class="form-horizontal" style="padding: 10px;" >
+            <form action="" method="get" class="form-inline filter-search" role="form" style="">
+                <input type="text" name="search" value="{{ queryParams['search'] }}" class="form-control" style="float:left;width: 80%;" placeholder="Find by name">
+                <input type="submit" value="Search" class="btn" style="float:left;">
+            </form>
+        </div>
+        <div style="clear: both;padding: 10px;"></div>
+        <div class="navigation" style="padding: 10px;position:absolute;left: 0px;top: 100px;">
+            {{ knp_pagination_render(categories) }}
+        </div>
+
+        <table class="table table-bordered table-striped" style="position:absolute;left: 0px;">
+        <tr>
+            <th>{{ knp_pagination_sortable(categories, 'ID' , 'c.id', [],[]) }}</th>
+            <th>{{ knp_pagination_sortable(categories, 'Name' , 'c.name', [],[]) }}</th>
+            <th>Slug</th>
+            <th>Image</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        {% for category in categories %}
+            <th>{{ category.id }}</th>
+            <th><a href="{{ path('category', {'category': category.slug } ) }}">{{ category.name }}</a></th>
+            <th>{{ category.slug }}</th>
+            <th><img src="{{ asset(category.image) }}" width="50px"></th>
+            <th><a href="{{ path('editSuchCategory', {'slug': category.slug } ) }}">Edit</a></th>
+            <th><a href="{{ path('deleteAdmin', {'type': 'category', 'item': category.slug } ) }}">Delete</a></th>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+
+
+    {% if form is defined and form is not null %}
+        {% set slug = app.request.get('slug') %}
+        {% dump(slug) %}
+        {% form_theme form "ShopBundle:Forms:styleForms.html.twig" %}
+        {{ form_start(form, {'action': path('editSuchCategory', {'slug': slug} ) , 'method': 'POST'} ) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+
+    {% endif %}
+
+
+{% endblock %}

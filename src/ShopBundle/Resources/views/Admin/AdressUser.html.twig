@@ -1,0 +1,55 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% block subscribe %}{% endblock %}
+{% block title %}{{ user is not null ? user.user.name ~' '~ user.user.surname : '' }}{% endblock %}
+{% block section %}{{ user is not null ? user.user.name ~' '~ user.user.surname : '' }}{% endblock %}
+{% block category %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block nav %}{% endblock %}
+{% block mainContent %}
+    {% if user is defined and user is not null %}
+        <div class="jumbotron">
+            <div>
+                Id: {{ user.user.id }}<br>
+                Name: {{ user.user.name }}
+                {{ user.user.surname }}<br>
+                Email: {{ user.user.email }} <br>
+                Country: {{ user.user.country }} <br>
+                Street: {{ user.user.street }} {{ user.user.number }}<br>
+                City: {{ user.user.city }}<br>
+                Zip Code: {{ user.user.zipCode }}<br>
+                Region: {{ user.user.region }}<br>
+                Phone: {{ user.user.phone }}<br>
+                Join date: {{ user.user.joinDate.date | date('d-m-Y') }}
+
+            </div>
+        </div>
+    {% endif %}
+
+    {% if items is defined and items is not null %}
+
+        <div class="jumbotron">
+        <h3>Bought:</h3>
+        Order ID: {{ user.orderId }}<br>
+        Payed: {{ user.payed == 1 ? 'NO' : 'YES' }}<br>
+        Purchase date: {{ user.purchaseDate | date('d-m-Y') }}<br>
+        Delivery: {{ user.delivery.name }}
+        <br><hr>
+        Items:<br>
+        {% for item in items %}
+            {% dump item.0 %}
+            {#{% set OrderId = item.0.orderId %}#}
+            {#{% if item.0.basket == false %}#}
+            <div style="float: left;padding: 20px;text-align: center">
+            <a target="_blank" href="{{ path('product', {'product': item.0.slug }) }}">
+                <img src="{{ asset(item.0.images) }}" width="150px"><br>
+                {{ item.0.name }}<br>
+            </a>
+                {{ item.0.prize }}{{ currency('PLN') }}
+            </div>
+            {#{% endif %}#}
+        {% endfor %}
+
+        <div style="clear: both;"></div>
+    {% endif %}
+        </div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% block subscribe %}{% endblock %}
+{% block title %}Main settings{% endblock %}
+{% block section %}Main settings{% endblock %}
+{% block category %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block mainContent %}
+
+    <a  class="btn btn-info" style="margin-bottom: 20px;" href="{{ path('addNewBanner') }}">Add new</a>
+    {% if banners is defined and banners is not null %}
+
+            {% for banner in banners %}
+                <div class="jumbotron">
+
+
+                    <div class="w3-display-container w3-container">
+                        <img src="{{ asset(banner.image) }}"  style="width:100%">
+                        <div class="w3-display-topleft w3-text-white" style="padding:24px 48px">
+                            <h1 class="w3-jumbo w3-hide-small">{{ banner.title }}</h1>
+                            <h1 class="w3-hide-large w3-hide-medium" style="font-size: 16px">{{ banner.description }}</h1>
+                            <h1 class="w3-hide-small" style="font-size: 16px">{{ banner.description }}</h1>
+                            <p><a href="{{ banner.redirect }}" class="w3-button w3-black w3-padding-large w3-large">SHOP NOW</a></p>
+                        </div>
+                    </div>
+                    <a  class="btn btn-info" style="margin-top: 20px;" href="{{ path('activationBanner', {'idBanner': banner.id} ) }}">Show</a>
+                    <a  class="btn btn-info" style="margin-top: 20px;" href="{{ path('editBanner', {'idBanner' : banner.id} ) }}">Edit</a>
+                    <a  class="btn btn-info" style="margin-top: 20px;" href="{{ path('deleteBanner', {'idBanner': banner.id } ) }}">Delete</a>
+                </div>
+            {% endfor %}
+
+
+    {% endif %}
+
+{% endblock %}

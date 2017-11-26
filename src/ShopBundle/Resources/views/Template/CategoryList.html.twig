@@ -1,0 +1,44 @@
+<div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
+
+    {% for category in categories %}
+        <a href="{{ path('category', {'category': category.slug } ) }}" class="w3-bar-item w3-button active">{{ category.name }}</a>
+    {% endfor %}
+
+        <a href="{{ path('brands') }}"  class="w3-bar-item w3-button w3-padding">Brands</a>
+</div>
+
+
+<form method="get" role="form" action="{{ path('search') }}" style=" width: 100%" >
+        {#<input name="search" type="text" style="float: left;" class="form-control">#}
+        {#<div style="text-align: center;width: 100%">#}
+                {#<input src="{{ asset('bundles/images/search.png') }}" type="submit" value="{% trans %}Search{% endtrans %}" style="float: left;margin-left: auto;margin-right: auto" class="btn">#}
+        {#</div>#}
+
+                <div class="row">
+                        <div class="col-md-10">
+                                <h5>{% trans %}Search{% endtrans %}</h5>
+                                <div id="custom-search-input">
+                                        <div class="input-group ">
+                                                <input type="text" name="search" class="form-control input-lg" placeholder="Search" />
+                                                <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="submit">
+                            <i class="glyphicon glyphicon-search"><img src="{{ asset('bundles/images/Search-icon.png') }}" width="20px" style="margin-top: -10px"></i>
+                        </button>
+                    </span>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+
+</form>
+<style>
+
+</style>
+
+<div class="row">
+
+        <a style="margin-top: 20px" href="{{ path('contact') }}" class="w3-bar-item w3-button w3-padding">{% trans %}Contact{% endtrans %}</a>
+</div>
+{#<a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a>#}
+{#<a href="#footer"  class="w3-bar-item w3-button w3-padding">Subscribe</a>#}

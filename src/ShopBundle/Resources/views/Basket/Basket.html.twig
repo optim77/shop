@@ -1,0 +1,87 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% block subscribe %}{% endblock %}
+{% block title %}{% trans %}Basket{% endtrans %}{% endblock %}
+{% block section %}{% trans %}Basket{% endtrans %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block mainContent %}
+    <div class="jumbotron" >
+
+        <h3>{% trans %}Basket{% endtrans %}:</h3><br>
+
+    {% if basket != null  %}
+    {% dump basket %}
+
+        <table class="table table-bordered table-striped" style="">
+            <tr>
+                <th>{% trans %}Name product{% endtrans %}</th>
+                <th>{% trans %}Price{% endtrans %}</th>
+                <th>{% trans %}Image{% endtrans %}</th>
+                <th>{% trans %}Delete{% endtrans %}</th>
+            </tr>
+            {% set wholeValue = 0  %}
+            {% for item in basket %}
+                <th><a target="_blank" href="{{ path('product', {'product': item.0.slug}) }}">{{ item.0.name }}</a> </th>
+                <th>{{ item.0.prize }}</th>
+                <th><img src="{{ asset(item.0.images) }}" width="100"></th>
+                <th><a href="{{ path('deleteFromBasket', {'item': item.0.id }) }}">{% trans %}Delete{% endtrans %}</a></th>
+                {% set wholeValue = item.0.prize + wholeValue %}
+                </tr>
+            {% endfor %}
+        </table>
+        <hr>
+        <h4>{% trans %}Delivery method{% endtrans %}:</h4>
+        <form method="post" action="{{ path('basketFinalize') }}" >
+            <table class="table table-bordered table-striped" style="">
+            <tr>
+                <th>{% trans %}Delivery{% endtrans %}</th>
+                <th>{% trans %}Price{% endtrans %}</th>
+                <th>{% trans %}Select{% endtrans %}</th>
+            </tr>
+        {% for delivery in deliveries %}
+            {% if delivery.name != 'Basket' %}
+                {% set cost = delivery.cost %}
+                <th>{{ delivery.name }}</th>
+                <th>{{ delivery.cost }}</th>
+                <th><input required="required" type="radio" name="deliveryType" id="{{ delivery.id }}" class="delivery" value="{{ delivery.id }}" ></th>
+                </tr>
+                {% endif %}
+        {% endfor %}
+        </table>
+            <h4>{% trans %}Summary{% endtrans %}:</h4><hr>
+            <div id="prize" style="margin-left: 90%;font-size: 26px;float: left;">
+                {{ wholeValue }}
+            </div><div style="font-size: 26px;float: left;">{{ currency('PLN') }}</div><div style="clear: both;"></div>
+
+            <input type="submit" value="{% trans %}Go to pay{% endtrans %}" class="btn btn-danger">
+
+        </form>
+
+
+        {#<a href="{{ path('basketFinalize') }}" class="btn btn-danger">{% trans %}Go to pay{% endtrans %}</a>#}
+        <script>
+            $(document).ready(function () {
+                $('.delivery').click(function () {
+                    var id = $(this).attr('value');
+
+                    $.post('{{ path('AJAXUPDATEDELIVERY') }}',{val: id}, function (response) {
+                        if (response ){
+                            var deliveryCost = response.costDelivery;
+                            var all = {{ wholeValue }} + deliveryCost;
+                            $("#prize").text(all);
+                        }
+                    },"json");
+                })
+            })
+
+        </script>
+
+        {% else %}
+            <div>{% trans %}Basket is empty{% endtrans %}</div>
+
+    {% endif %}
+
+    </div>
+
+
+
+{% endblock %}

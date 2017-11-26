@@ -1,0 +1,122 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% block subscribe %}{% endblock %}
+{% block title %}Category settings{% endblock %}
+{% block section %}Category settings{% endblock %}
+{% block category %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block nav %}{% endblock %}
+{% block mainContent %}
+
+    {% if products is defined and products is not null %}
+
+        <div class="form-horizontal" style="padding: 10px;background-color: #EEEEEE;width: 100%;position: absolute;left: 0px;border-radius: 5px;" >
+            <form action="" method="get" class="form-inline filter-search" role="form" style="">
+                <input type="text" name="search" value="{{ queryParams['search'] }}" class="form-control" style="float:left;width: 80%;" placeholder="Find by name">
+                <input type="submit" value="Search" class="btn" style=" float:left;margin-left: 10px;">
+
+                <form class="form-group">
+                    <select name="categoryId" class="select-block form-control" style="margin-left: 10px;">
+                        <option {{  null == queryParams['categoryId'] ? 'selected=selected': '' }} value="">Category</option>
+                        {% for category in categories %}
+                            <option {{  category['id'] == queryParams['categoryId'] ? 'selected=selected': '' }} value="{{ category['id'] }}" >{{ category['name'] }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="brandId" class="select-block form-control" style="margin-left: 10px;">
+                        <option {{ null == queryParams['brandId'] ? 'selected=selected': '' }} value="">Brand</option>
+                        {% for brand in brands %}
+                            <option {{  brand['id'] == queryParams['brandId'] ? 'selected=selected': '' }} value="{{ brand['id'] }}" >{{ brand['name'] }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+
+
+
+            </form>
+        </div>
+
+        <div style="clear: both;padding: 50px;"></div>
+        <div class="navigation" style="padding: 10px;position:absolute;left: 0px;top: 150px;">
+            {{ knp_pagination_render(products) }}
+        </div>
+        <table class="table table-bordered table-striped" style="position:absolute;left: 0px;">
+            <tr>
+
+                <th>{{ knp_pagination_sortable(products, 'ID' , 'p.id') }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Name' , 'p.name') }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Brand' , 'b.name') }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Category' , 'c.name') }}</th>
+                <th>Slug</th>
+                <th>Images</th>
+                <th>Description</th>
+                <th>{{ knp_pagination_sortable(products, 'Created data' , 'p.createDate') }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Published data' , 'p.publishDate') }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Prize' , 'p.prize') }}</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            {% for product in products %}
+                <th>{{ product.id }}</th>
+                <th><a href="{{ path('product', {'product': product.slug }) }}">{{ product.name }}</a></th>
+                <th><a href="{{ path('brand', {'brand': product.brand.slug } ) }}">{{ product.brand.name }}</a></th>
+                <th><a href="{{ path('category', {'category': product.category.slug } ) }}">{{ product.category.name }}</a></th>
+                <th>{{ product.slug }}</th>
+                <th><img src="{{ asset(product.images)}}" width="50px"></th>
+                <th>{{ product.description|length > 150 ? product.description|slice(0, 150) ~ '...' : product.description  }}</th>
+                <th>{{ product.createDate | date('d-m-Y') }}</th>
+                <th>{{ product.publishDate | date('d-m-Y') }}</th>
+                <th>{{ product.prize }}</th>
+                <th><a href="{{ path('editSuchProduct', {'slug': product.slug } ) }}">Edit</a></th>
+                <th><a href="{{ path('deleteAdmin', {'type': 'product', 'item': product.slug } ) }}">Delete</a></th>
+                </tr>
+            {% endfor %}
+        </table>
+        </div>
+
+
+
+
+
+    {% endif %}
+
+
+    {% if form is defined and form is not null %}
+        {% set slug = app.request.get('slug') %}
+        {% form_theme form "ShopBundle:Forms:styleForms.html.twig" %}
+        {{ form_start(form, {'action': path('editSuchProduct', {'slug': slug} ) , 'method': 'POST'} ) }}
+
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+        <div class="form-group ">
+            <label for="">Kategoria</label>
+            <div>
+                <select class="form-control" id="category" name="category">
+                    <option value="{{ defaultCategory.id }}" >{{ defaultCategory.name }}</option>
+                    {% for category in categories %}
+                        {% if category.id != defaultCategory.id %}
+                            <option value="{{ category.id }}" >{{ category.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group ">
+            <label for="">Marka</label>
+            <div>
+                <select class="form-control" id="brand" name="brand">
+                    <option value="{{ defaultBrand.id }}" >{{ defaultBrand.name }}</option>
+                    {% for brand in brands %}
+                        {% if brand.id != defaultBrand.id %}
+                            <option value="{{ brand.id }}" >{{ brand.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+
+    {% endif %}
+
+
+{% endblock %}

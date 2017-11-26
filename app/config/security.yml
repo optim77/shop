@@ -1,0 +1,52 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    encoders:
+        ShopBundle\Entity\User:
+            algorithm: bcrypt
+
+    providers:
+#        fos_userbundle:
+#            id: fos_user.user_provider.username_email
+        shop_user:
+            entity:
+                class: ShopBundle:User
+                property: username #nazwa użytkownika
+
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+                    #switch_user: true #need this to ROLE_ALLOWED_TO_SWITCH ?_switch_user = user
+            pattern: ^/
+            anonymous: ~
+            provider: shop_user
+            form_login:
+                login_path: login #controller login page
+                check_path: login
+                default_target_path: index #default page to redirect after login
+            logout:
+                  path: logout
+                  target: index #default page to redirect after logout
+            remember_me:
+                  secret:      "%secret%"
+                  lifetime: 31536000 # 356 days in seconds
+                  path: /
+                  domain: ~ #defaults to the current domain from $_SERVER
+
+    role_hierarchy:
+            ROLE_EDITOR: ROLE_USER
+            ROLE_ADMIN: [ROLE_EDITOR, ROLE_USER]
+            ROLE_SUPER_ADMIN: [ROLE_USER,ROLE_EDITOR ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    access_control:
+            - { path: ^/admin, roles: ROLE_ADMIN }
+            - { path: ^/admin/^, roles: ROLE_ADMIN }
+            - { path: ^/profile, roles: ROLE_USER }
+            - { path: ^/basket, roles: ROLE_USER }

@@ -1,0 +1,256 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: NASA
+ * Date: 2017-10-31
+ * Time: 20:06
+ */
+
+namespace ShopBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+*  @ORM\Entity(repositoryClass="ShopBundle\Repository\OrdersRepository")
+ * @ORM\Table(name="orders")
+ */
+class Orders
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(
+     *     targetEntity="User",
+     *     inversedBy="point"
+     * )
+     *
+     * @ORM\JoinColumn(
+     *     name = "clientId",
+     *     referencedColumnName = "id",
+     *     onDelete = "SET NULL"
+     * )
+     */
+
+    private $client;
+
+    /**
+     * @ORM\ManyToOne(
+     *     targetEntity="Products",
+     *     inversedBy="point"
+     * )
+     *
+     * @ORM\JoinColumn(
+     *     name = "product",
+     *     referencedColumnName = "id",
+     *     onDelete = "SET NULL"
+     * )
+     */
+
+    private $staff;
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $payed;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $bill;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $purchaseDate;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $completed;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->client = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->staff = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set payed
+     *
+     * @param boolean $payed
+     *
+     * @return Orders
+     */
+    public function setPayed($payed)
+    {
+        $this->payed = $payed;
+
+        return $this;
+    }
+
+    /**
+     * Get payed
+     *
+     * @return boolean
+     */
+    public function getPayed()
+    {
+        return $this->payed;
+    }
+
+    /**
+     * Set bill
+     *
+     * @param string $bill
+     *
+     * @return Orders
+     */
+    public function setBill($bill)
+    {
+        $this->bill = $bill;
+
+        return $this;
+    }
+
+    /**
+     * Get bill
+     *
+     * @return string
+     */
+    public function getBill()
+    {
+        return $this->bill;
+    }
+
+    /**
+     * Set purchaseDate
+     *
+     * @param \DateTime $purchaseDate
+     *
+     * @return Orders
+     */
+    public function setPurchaseDate($purchaseDate)
+    {
+        $this->purchaseDate = $purchaseDate;
+
+        return $this;
+    }
+
+    /**
+     * Get purchaseDate
+     *
+     * @return \DateTime
+     */
+    public function getPurchaseDate()
+    {
+        return $this->purchaseDate;
+    }
+
+    /**
+     * Set completed
+     *
+     * @param boolean $completed
+     *
+     * @return Orders
+     */
+    public function setCompleted($completed)
+    {
+        $this->completed = $completed;
+
+        return $this;
+    }
+
+    /**
+     * Get completed
+     *
+     * @return boolean
+     */
+    public function getCompleted()
+    {
+        return $this->completed;
+    }
+
+    /**
+     * Add client
+     *
+     * @param \ShopBundle\Entity\User $client
+     *
+     * @return Orders
+     */
+    public function addClient(\ShopBundle\Entity\User $client)
+    {
+        $this->client[] = $client;
+
+        return $this;
+    }
+
+    /**
+     * Remove client
+     *
+     * @param \ShopBundle\Entity\User $client
+     */
+    public function removeClient(\ShopBundle\Entity\User $client)
+    {
+        $this->client->removeElement($client);
+    }
+
+    /**
+     * Get client
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * Add staff
+     *
+     * @param \ShopBundle\Entity\Products $staff
+     *
+     * @return Orders
+     */
+    public function addStaff(\ShopBundle\Entity\Products $staff)
+    {
+        $this->staff[] = $staff;
+
+        return $this;
+    }
+
+    /**
+     * Remove staff
+     *
+     * @param \ShopBundle\Entity\Products $staff
+     */
+    public function removeStaff(\ShopBundle\Entity\Products $staff)
+    {
+        $this->staff->removeElement($staff);
+    }
+
+    /**
+     * Get staff
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStaff()
+    {
+        return $this->staff;
+    }
+}

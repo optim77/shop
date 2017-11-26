@@ -1,0 +1,17 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% form_theme form "ShopBundle:Forms:styleForms.html.twig" %}
+{% block title %}Login{% endblock %}
+
+{% block mainContent %}
+    <div style="font-size: 25px;text-align: center">Login</div>
+    <div style="padding: 10px;">
+        {% if error is defined and error is not null %}<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>{% endif %}
+        {{ form_start(form, {"action": path('login'), 'method': "POST"} ) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+
+    You dont have account? <a href="{{ path('register') }}">Sing in</a>
+{% endblock %}
+{% block subscribe %}<hr>{% endblock %}

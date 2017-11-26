@@ -1,0 +1,66 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% block subscribe %}{% endblock %}
+{% block title %}Users settings{% endblock %}
+{% block section %}Users settings{% endblock %}
+{% block category %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block nav %}{% endblock %}
+{% block mainContent %}
+
+
+    {% if users is defined and users is not null %}
+
+        <div class="form-horizontal" style="padding: 10px;" >
+            <form action="" method="get" class="form-inline filter-search" role="form" style="">
+                <input type="text" name="search"  value="{{ queryParams['search'] }}" class="form-control" style="float:left;width: 80%;" placeholder="Find by name, surname, email or phone">
+                <input type="submit" value="Search" class="btn" style="float:left;">
+            </form>
+        </div>
+        <div style="clear: both;padding: 10px;"></div>
+        <div class="navigation" style="padding: 10px;position:absolute;left: 0px;top: 100px;">
+            {{ knp_pagination_render(users) }}
+        </div>
+
+        <table class="table table-bordered table-striped" style="position:absolute;left: 0px;">
+            <tr>
+                <th>{{ knp_pagination_sortable(users, 'ID' , 'u.id', [],[]) }}</th>
+                <th>{{ knp_pagination_sortable(users, 'Name' , 'u.name', [],[]) }}</th>
+                <th>{{ knp_pagination_sortable(users, 'Surname' , 'u.id', [],[]) }}</th>
+                <th>E-mail</th>
+                <th>{{ knp_pagination_sortable(users, 'Country' , 'u.country', [],[]) }}</th>
+                <th>Zip-Code</th>
+                <th>Street</th>
+                <th>Number</th>
+                <th>{{ knp_pagination_sortable(users, 'Region' , 'u.region', [],[]) }}</th>
+                <th>Phone</th>
+                <th>{{ knp_pagination_sortable(users, 'Join date' , 'u.joinDate', [],[]) }}</th>
+                <th>{{ knp_pagination_sortable(users, 'Enable' , 'u.enable', [],[]) }}</th>
+                <th>{{ knp_pagination_sortable(users, 'Role' , 'u.role', [],[]) }}</th>
+                <th>{{ knp_pagination_sortable(users, 'Locked' , 'u.locked', [],[]) }}</th>
+                <th>Lock</th>
+            </tr>
+            {% for user in users %}
+                    <th>{{ user.id }}</th>
+                    <th>{{ user.name }}</th>
+                    <th>{{ user.surname }}</th>
+                    <th>{{ user.email }}</th>
+                    <th>{{ user.country }}</th>
+                    <th>{{ user.zipCode }}</th>
+                    <th>{{ user.street }}</th>
+                    <th>{{ user.number }}</th>
+                    <th>{{ user.region }}</th>
+                    <th>{{ user.phone }}</th>
+                    <th>{{ user.joinDate|date("d-m-Y") }}</th>
+                    <th>{{ user.enabled }}</th>
+                    <th>{{ user.roles.0 }}</th>
+                    <th>{{ user.accountNonLocked }}</th>
+                    <th><a href="" >Lock</a></th>
+
+            </tr>
+            {% endfor %}
+        </table>
+
+
+    {% endif %}
+
+{% endblock %}

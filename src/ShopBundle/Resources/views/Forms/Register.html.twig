@@ -1,0 +1,14 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% form_theme form "ShopBundle:Forms:styleForms.html.twig" %}
+{% block title %}Register{% endblock %}
+{% block mainContent %}
+    <div style="font-size: 25px;text-align: center">Registry</div>
+    <div style="padding: 10px;">
+        {{ form_start(form, {'action': path('register'), 'method': 'POST' } ) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+
+{% endblock %}
+{% block subscribe %}<hr>{% endblock %}

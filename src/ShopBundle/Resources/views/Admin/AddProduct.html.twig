@@ -1,0 +1,29 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% form_theme form "ShopBundle:Forms:styleForms.html.twig" %}
+{% block subscribe %}{% endblock %}
+{% block title %}{% trans %}Add new product{% endtrans %}{% endblock %}
+{% block section %}{% trans %}Add new product{% endtrans %}{% endblock %}
+{% block category %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block nav %}{% endblock %}
+{% block mainContent %}
+
+    {{ form_start(form, {'action': path('addProduct'), 'method': 'POST' } ) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+    {% if categories is defined and categories is not null %}
+        <div>
+
+
+        {% trans %}Current categories{% endtrans %}:
+        {% for category in categories %}
+            <br>
+            <a href="{{ path('category', {'category': category.slug } ) }}">
+                {{ category.name }}
+            </a>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<title>{% block title %}{% spaceless %}Shop{% endspaceless %}{% endblock %}</title>
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('bundles/shop/css/res.css') }}" >
+        <script src="{{ asset('bundles/jquery-3.2.1.min.js') }}" ></script>
+
+    <style>
+        .w3-sidebar a {font-family: "Roboto", sans-serif}
+        body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
+    </style>
+    {% endblock %}
+</head>
+
+<body class="w3-content" style="max-width:1200px;">
+
+<!-- Sidebar/menu -->
+{% block nav %}
+<nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
+    <div class="w3-container w3-display-container w3-padding-16">
+
+        <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
+        <h3 class="w3-wide"><b>{% block logo %}{% spaceless %}<a style="color: #000;" href="{{ path('index') }}" >LOGO</a>{% endspaceless %}{% endblock %}</b></h3>
+
+    </div>
+    {% block category %}
+    {{ category() }}
+    {% endblock %}
+
+</nav>
+{% endblock %}
+
+<!-- Top menu on small screens -->
+<header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
+    <div class="w3-bar-item w3-padding-24 w3-wide"><a  class="white" href="{{ path('index') }}" >LOGO</a></div>
+    <a href="javascript:void(0)" onclick="toggleMenu()" class="w3-bar-item w3-button w3-padding-24 w3-right" ><i class="fa fa-bars"></i></a>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:250px">
+    {% block content %}
+    <!-- Push down content on small screens -->
+    <div class="w3-hide-large" style="margin-top:83px"></div>
+
+    <!-- Top header -->
+    <header class="w3-container w3-xlarge">
+        <p class="w3-left">{% block section %}{% endblock %}</p>
+        <p class="w3-right">
+
+            {% if app.user %}
+                    {#<i class="fa fa-search"></i>#}
+
+                    <a href="{{ path('basket') }}" class="{{ app.user.basket != null ? 'btn btn-danger' : 'btn btn-info'  }}" >{{ app.user.basket | length }}<img src="https://d30y9cdsu7xlg0.cloudfront.net/png/65006-200.png"width="25" style="margin-top: -7px;margin-left: 10px" ></a>
+                    <a href="{{ path('profile') }}" class="btn"><img src="https://image.flaticon.com/icons/png/512/64/64572.png" width="25"style="margin-top: -7px;margin-left: 10px"></a>
+                    <a href="{{ path('logout') }}" class="btn"><img src="https://image.freepik.com/free-icon/logout_318-10026.jpg" width="25"style="margin-top: -7px;margin-left: 10px"></a>
+
+            {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('admin') }}" class="btn btn-info" style="color: #000;font-size: 16px" >Admin</a>
+                {% endif %}
+        <div style="clear: both;"></div>
+
+        {% else %}
+                    <a href="{{ path('login') }}" style="font-size: 16px;color: #000;">Login/Registry</a>
+            {% endif %}
+
+        </p>
+
+    </header>
+
+    <!-- Image header -->
+
+
+
+    <div class="w3-container w3-text-grey" id="jeans">
+        <p>{% block amountItems %}{% endblock %}</p>
+    </div>
+
+    <!-- Product grid -->
+        {% block mainContent %}
+
+        {% endblock %}
+
+    {% endblock %}
+    {% block subscribe %}
+    <!-- Subscribe section -->
+    <div class="w3-container w3-black w3-padding-32">
+        <h1>Subscribe</h1>
+        <p>To get special offers and VIP treatment:</p>
+        <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail" style="width:100%"></p>
+        <button type="button" class="w3-button w3-red w3-margin-bottom">Subscribe</button>
+    </div>
+    {% endblock %}
+
+
+
+    <!-- Footer -->
+    {% block footer %}
+    <footer class="w3-padding-32 w3-light-grey w3-small w3-center" id="footer">
+        <div class="w3-row-padding">
+
+            <h6>Name page</h6>
+
+            <a href="{{ path('index') }}">Main page</a>
+            <a href="{{ path('brands') }}">Brands</a>
+            <a href="{{ path('login') }}">Login</a>
+            <a href="{{ path('register') }}">Register</a>
+            <a href="{{ path('contact') }}">Contact</a>
+
+            <br><hr>
+            Name page {{ "now" | date('Y') }} &#x24D2;
+            All rights reserved
+
+            {#<div class="w3-col s4">#}
+                {#<h4>Contact</h4>#}
+                {#<p>Questions? Go ahead.</p>#}
+                {#<form action="/action_page.php" target="_blank">#}
+                    {#<p><input class="w3-input w3-border" type="text" placeholder="Name" name="Name" required></p>#}
+                    {#<p><input class="w3-input w3-border" type="text" placeholder="Email" name="Email" required></p>#}
+                    {#<p><input class="w3-input w3-border" type="text" placeholder="Subject" name="Subject" required></p>#}
+                    {#<p><input class="w3-input w3-border" type="text" placeholder="Message" name="Message" required></p>#}
+                    {#<button type="submit" class="w3-button w3-block w3-black">Send</button>#}
+                {#</form>#}
+            {#</div>#}
+
+            {#<div class="w3-col s4">#}
+                {#<h4>About</h4>#}
+                {#<p><a href="#">About us</a></p>#}
+                {#<p><a href="#">We're hiring</a></p>#}
+                {#<p><a href="#">Support</a></p>#}
+                {#<p><a href="#">Find store</a></p>#}
+                {#<p><a href="#">Shipment</a></p>#}
+                {#<p><a href="#">Payment</a></p>#}
+                {#<p><a href="#">Gift card</a></p>#}
+                {#<p><a href="#">Return</a></p>#}
+                {#<p><a href="#">Help</a></p>#}
+            {#</div>#}
+
+            {#<div class="w3-col s4 w3-justify">#}
+                {#<h4>Store</h4>#}
+                {#<p><i class="fa fa-fw fa-map-marker"></i> Company Name</p>#}
+                {#<p><i class="fa fa-fw fa-phone"></i> 0044123123</p>#}
+                {#<p><i class="fa fa-fw fa-envelope"></i> ex@mail.com</p>#}
+                {#<h4>We accept</h4>#}
+                {#<p><i class="fa fa-fw fa-cc-amex"></i> Amex</p>#}
+                {#<p><i class="fa fa-fw fa-credit-card"></i> Credit Card</p>#}
+                {#<br>#}
+                {#<i class="fa fa-facebook-official w3-hover-opacity w3-large"></i>#}
+                {#<i class="fa fa-instagram w3-hover-opacity w3-large"></i>#}
+                {#<i class="fa fa-snapchat w3-hover-opacity w3-large"></i>#}
+                {#<i class="fa fa-pinterest-p w3-hover-opacity w3-large"></i>#}
+                {#<i class="fa fa-twitter w3-hover-opacity w3-large"></i>#}
+                {#<i class="fa fa-linkedin w3-hover-opacity w3-large"></i>#}
+            {#</div>#}
+        </div>
+    </footer>
+
+    {#<div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>#}
+    {% endblock %}
+    <!-- End page content -->
+</div>
+
+<!-- Newsletter Modal -->
+<div id="newsletter" class="w3-modal">
+    <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
+        <div class="w3-container w3-white w3-center">
+            <i onclick="document.getElementById('newsletter').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
+            <h2 class="w3-wide">NEWSLETTER</h2>
+            <p>Join our mailing list to receive updates on new arrivals and special offers.</p>
+            <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
+            <button type="button" class="w3-button w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('newsletter').style.display='none'">Subscribe</button>
+        </div>
+    </div>
+</div>
+
+
+
+{% block scripts %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+    <script>
+    // Accordion
+    function myAccFunc() {
+        var x = document.getElementById("demoAcc");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+
+    // Click on the "Jeans" link on page load to open the accordion for demo purposes
+    document.getElementById("myBtn").click();
+    
+    function toggleMenu() {
+        $("#mySidebar").toggle();
+    }
+
+
+    // Script to open and close sidebar
+    function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+        document.getElementById("myOverlay").style.display = "block";
+    }
+
+    function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+        document.getElementById("myOverlay").style.display = "none";
+    }
+</script>
+{% endblock %}
+</body>
+</html>

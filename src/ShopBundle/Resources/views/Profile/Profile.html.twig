@@ -1,0 +1,14 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% form_theme form "ShopBundle:Forms:styleForms.html.twig" %}
+{% block title %}Profile{% endblock %}
+{% block subscribe %}<hr>{% endblock %}
+{% block mainContent %}
+
+    <div style="font-size: 20px">Set your data</div><hr>
+    <div style="padding: 10px;" >
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

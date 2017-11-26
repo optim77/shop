@@ -1,0 +1,47 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% block subscribe %}{% endblock %}
+{% block title %}Main settings{% endblock %}
+{% block section %}Main settings{% endblock %}
+{% block category %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block mainContent %}
+
+    <div class="jumbotron">
+        <p>Deliver type:</p>
+        {% if delivers is defined and delivers is not null %}
+
+
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Delivery time</th>
+                    <th>Cost</th>
+                    <th>Image</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+
+                </tr>
+                {% for deliver in delivers %}
+                    {% dump(deliver) %}
+                    <th>{{ deliver.id }}</th>
+                    <th>{{ deliver.name }}</th>
+                    <th>{{ deliver.description|length > 150 ? deliver.description|slice(0, 150) ~ '...' : deliver.description  }}</th>
+                    <th>{{ deliver.timeToDeliver }}</th>
+                    <th>{{ deliver.cost }}</th>
+                    <th>{{ deliver.image }}</th>
+                    <th><a href="{{ path('editDelivery', {'idDelivery': deliver.id } ) }}">Edit</a></th>
+                    <th><a href="{{ path('deleteDelivery', {'idDelivery': deliver.id } ) }}">Delete</a></th>
+                    </tr>
+                {% endfor %}
+            </table>
+
+
+
+        {% endif %}
+        <a href="{{ path('addDelivery') }}">Add new method</a>
+
+    </div>
+
+{% endblock %}

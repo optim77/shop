@@ -1,0 +1,51 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: NASA
+ * Date: 2017-10-20
+ * Time: 21:20
+ */
+
+namespace ShopBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="category")
+ */
+class Category
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=120, unique=true)
+     */
+    private $name;
+
+
+    /**
+     * @ORM\Column(type="string", length=120, unique=true)
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="string", length=80)
+     */
+    private $image;
+
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity="Products",
+     *     mappedBy="category"
+     * )
+     */
+    private $products;
+
+}

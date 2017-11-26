@@ -1,0 +1,29 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% form_theme form "ShopBundle:Forms:styleForms.html.twig" %}
+{% block subscribe %}{% endblock %}
+{% block title %}{% trans %}Add new brand{% endtrans %}{% endblock %}
+{% block section %}{% trans %}Add new brand{% endtrans %}{% endblock %}
+{% block category %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block nav %}{% endblock %}
+{% block mainContent %}
+
+    {{ form_start(form, {'action': path('addBrand'), 'method': 'POST' } ) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+    {% if brands is defined and brands is not null %}
+        <div>
+
+
+            {% trans %}Current brands{% endtrans %}:
+            {% for brand in brands %}
+                <br>
+                <a href="{{ path('brand', {'brand': brand.slug } ) }}">
+                    {{ brand.name }}
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+{% endblock %}

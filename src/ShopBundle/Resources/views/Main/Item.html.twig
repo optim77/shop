@@ -1,0 +1,116 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% block subscribe %}<hr>{% endblock %}
+
+{% block title %}{% if product is defined and product is not null %}{{ product.name }}{% endif %}{% endblock %}
+{% block section %}{% if product is defined and product is not null %}{{ product.name | upper }}{% endif %}{% endblock %}
+
+{% block mainContent %}
+    {% if product is defined and product is not null %}
+        <div>
+            {% if is_granted('ROLE_ADMIN') %}
+            <a target="_blank" href="{{ path('editSuchProduct', {'slug': app.request.get('product') } ) }}">Edit</a>
+            {% endif %}
+            <hr>
+
+
+
+        <div  style="float: left;width: 50%">
+            <div class="w3-content w3-display-container">
+
+                <div class="w3-display-container mySlides">
+                    <img src="{{ asset(product.images) }}" style="width:100%;height: 500px">
+                    <div class="w3-display-bottomleft w3-large w3-container w3-padding-16 w3-black">
+                        {{ product.name }}
+                    </div>
+                </div>
+                {% dump product %}
+                {% if  product.image2 | length > 20 %}
+                <div class="w3-display-container mySlides">
+                    <img src="{{ asset(product.image2) }}"   style="width:100%;height: 500px">
+                    <div class="w3-display-bottomright w3-large w3-container w3-padding-16 w3-black">
+                        {{ product.name }}
+                    </div>
+                </div>
+                {% endif %}
+                {% if product.image3 | length > 20 %}
+                    <div class="w3-display-container mySlides">
+                        <img src="{{ asset(product.image3) }}" style="width:100%;height: 500px">
+                        <div class="w3-display-bottomright w3-large w3-container w3-padding-16 w3-black">
+                            {{ product.name }}
+                        </div>
+                    </div>
+                {% endif %}
+
+
+
+                <button class="w3-button w3-display-left w3-black" onclick="plusDivs(-1)">&#10094;</button>
+                <button class="w3-button w3-display-right w3-black" onclick="plusDivs(1)">&#10095;</button>
+
+            </div>
+        </div>
+
+
+
+            <div style="float: left;text-align: center;width: 50%">
+                <div style="padding: 10px;font-size: 20px;font-weight:600;text-align: center;float: left;margin-left: 30%"><p>{{ product.name | upper }}</p></div>
+                <div style="clear: both;"></div>
+                <div style="padding: 10px;font-size: 25px;"><p> {{ product.prize }} {{ currency('PLN') }}</p></div>
+                {% if is_granted('ROLE_USER') %}
+                    {% if product.amounts > 1 %}
+                    <a href="{{ path('addToBasket', {'item': product.id } ) }}" class="btn btn-info">Add to  </a>
+                        {% else %}
+                            <div><h4>{% trans %}Sold out{% endtrans %}</h4></div>
+                    {% endif %}
+                    <div style="margin-top: 50px"><a style="padding: 10px;" href="{{ path('brand', {'brand': product.brand.slug }) }}"><img src="{{ asset(product.brand.image) }}" width="100px;"></a></div>
+
+                {% else %}
+
+                    {% if product.amounts > 1 %}
+                    <a href="{{ path('login') }}" class="btn btn-info">Add to  </a>
+                        {% else %}
+                        <div>Sold out</div>
+                    {% endif %}
+                    <div style="margin-top: 50px"><a style="padding: 10px;" href="{{ path('brand', {'brand': product.brand.slug }) }}"><img src="{{ asset(product.brand.image) }}" width="100px;"></a></div>
+
+                {% endif %}
+            </div>
+
+            <div style="clear: both;" ></div>
+            <hr>
+            <div style="padding: 10px;font-size: 20px;text-align: center"><p>{{ product.description | raw }}</p></div>
+
+            {{ propose() }}
+
+        </div>
+
+        {% else %}
+            <div style="font-size: 20px;">{% trans %}Not found this product{% endtrans %}</div>
+    {% endif %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+
+
+
+
+        var slideIndex = 1;
+        showDivs(slideIndex);
+
+        function plusDivs(n) {
+            showDivs(slideIndex += n);
+        }
+
+        function showDivs(n) {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            if (n > x.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = x.length}
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            x[slideIndex-1].style.display = "block";
+        }
+
+    </script>
+
+    
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% block subscribe %}{% endblock %}
+{% block title %}Add new{% endblock %}
+{% block section %}Add new{% endblock %}
+{% block category %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block mainContent %}
+    {% form_theme form "ShopBundle:Forms:styleForms.html.twig" %}
+    {{ form_start(form, {'action': path('addDelivery'), 'method': 'POST' } ) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+{% endblock %}

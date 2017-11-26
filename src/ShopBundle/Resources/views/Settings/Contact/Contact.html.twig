@@ -1,0 +1,16 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% block subscribe %}{% endblock %}
+{% block title %}Admin panel{% endblock %}
+{% block section %}Admin panel{% endblock %}
+{% block category %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block nav %}{% endblock %}
+{% block mainContent %}
+    <div class="jumbotron">Current contact page <a target="_blank" href="{{ path('contact') }}">Current page</a></div>
+    {% form_theme form "ShopBundle:Forms:styleForms.html.twig" %}
+    {{ form_start(form, {'action': path('AdminContact'), 'method': 'POST' } ) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+
+{% endblock %}

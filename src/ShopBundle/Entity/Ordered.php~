@@ -1,0 +1,42 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: NASA
+ * Date: 2017-11-12
+ * Time: 18:23
+ */
+
+namespace ShopBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ *  @ORM\Entity(repositoryClass="ShopBundle\Repository\OrderedRepository")
+ * @ORM\Table(name="Ordered")
+ */
+class Ordered
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(
+     *     targetEntity="Order",
+     *     inversedBy="orderId"
+     * )
+     *
+     * @ORM\JoinColumn(
+     *     name = "orderId",
+     *     referencedColumnName = "id",
+     *     onDelete = "SET NULL"
+     * )
+     *
+     */
+    private $orderId;
+
+
+}

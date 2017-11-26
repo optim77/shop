@@ -1,0 +1,23 @@
+{% if proposes is defined and proposes is not null %}
+    <div><h3>{% trans %}Propose products{% endtrans %}</h3></div>
+<hr>
+
+
+
+    {% for propose in proposes %}
+        <div style="float: left; padding: 10px;text-align: center;font-size: 16px;color: #000;">
+            <a style="color: #000;" href="{{ path('product', {'product': propose.slug }) }}">
+                <img src="{{ asset(propose.images) }}" width="170px">
+                <p>{{ propose.name }}</p>
+            </a>
+        </div>
+    {% endfor %}
+
+<hr>
+<div style="clear: both;" ></div>
+
+
+
+
+
+{% endif %}

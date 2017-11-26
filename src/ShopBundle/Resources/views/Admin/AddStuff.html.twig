@@ -1,0 +1,44 @@
+{% extends "ShopBundle:BASE:base.html.twig" %}
+{% form_theme form "ShopBundle:Forms:styleForms.html.twig" %}
+{% block subscribe %}{% endblock %}
+{% block title %}Add new product{% endblock %}
+{% block section %}Add new product{% endblock %}
+{% block category %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block nav %}{% endblock %}
+{% block mainContent %}
+
+    {{ form_start(form, {'action': path('addStaff'), 'method': 'POST' } ) }}
+
+    {{ form_row(form.name) }}
+
+    {{ form_row(form.description) }}
+
+    <div class="form-group ">
+        <label for="">Kategoria</label>
+        <div>
+            <select class="form-control" id="category" name="category">
+                {% for category in categories %}
+                    <option value="{{ category.id }}" >{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group ">
+        <label for="">Marka</label>
+        <div>
+            <select class="form-control" id="brand" name="brand">
+                {% for brand in brands %}
+                    <option value="{{ brand.id }}" >{{ brand.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    {{ form_rest(form) }}
+
+    {{ form_end(form) }}
+
+
+{% endblock %}
